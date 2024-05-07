@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SchoolManagementApp.Data;
+using SchoolManagementApp.Models;
 
 namespace SchoolManagementApp.Controllers
 {
@@ -15,9 +17,12 @@ namespace SchoolManagementApp.Controllers
     {
         private readonly SchoolManagementDbContext _context;
 
-        public LecturersController(SchoolManagementDbContext context)
+        private readonly INotyfService _notyfService; 
+
+        public LecturersController(SchoolManagementDbContext context, INotyfService notyfService)
         {
             _context = context;
+            _notyfService = notyfService;
         }
 
         // GET: Lecturers
@@ -60,6 +65,7 @@ namespace SchoolManagementApp.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(lecturer);
+                _notyfService.Success($"Lecturer Added Successfully");
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -99,6 +105,7 @@ namespace SchoolManagementApp.Controllers
                 try
                 {
                     _context.Update(lecturer);
+                    _notyfService.Success($"Lecturer Edited Successfully");
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -144,6 +151,7 @@ namespace SchoolManagementApp.Controllers
             if (lecturer != null)
             {
                 _context.Lecturers.Remove(lecturer);
+                _notyfService.Warning($"Lecturer Deleted Successfully");
             }
 
             await _context.SaveChangesAsync();

@@ -69,6 +69,7 @@ namespace SchoolManagementApp.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(@class);
+                _notyfService.Success($"Class Added Successfully");
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -110,6 +111,7 @@ namespace SchoolManagementApp.Controllers
                 try
                 {
                     _context.Update(@class);
+                    _notyfService.Success($"Class Edited Successfully");
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -158,6 +160,7 @@ namespace SchoolManagementApp.Controllers
             if (@class != null)
             {
                 _context.Classes.Remove(@class);
+                _notyfService.Warning($"Class Deleted Successfully");
             }
 
             await _context.SaveChangesAsync();

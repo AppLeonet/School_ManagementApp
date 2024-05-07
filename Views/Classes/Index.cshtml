@@ -39,7 +39,7 @@
             <td>
                 <a class= "btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a class= "btn btn-primary"asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <button data-id="@item.Id" class="btn btn-danger deleteBtn" type="button">Delete</button>
+                <button data-id="@item.Id" class="btn btn-danger deleteBtn" type="button">Delete</button> |
                 <a asp-action="ManageEnrollments" class="btn btn-success" asp-route-classId="@item.Id">Manage Enrollments</a> 
             </td>
         </tr>
@@ -74,8 +74,8 @@
                             );
                             var btn = $(this);
                             var id = btn.data("id");
-                            $('#courseid').val(id);
-                            $('#courseDeleteForm').submit();
+                            $('#classid').val(id);
+                            $('#classDeleteForm').submit();
                         }
                     })
             })
